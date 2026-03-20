@@ -16,7 +16,7 @@ declan = Player(
     stats={
         "shooting": 8, "passing": 7, "dribbling": 6,
         "defending": 8, "speed": 7, "stamina": 7,
-        "positioning": 5, "vision": 5, "shot_stopping": 2
+        "positioning": 5, "vision": 5, "saving": 2
     }
 )
 
