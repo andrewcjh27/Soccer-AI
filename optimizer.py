@@ -51,10 +51,12 @@ def optimize_lineup(roster, formation):
     prob.solve(PULP_CBC_CMD(msg=0))
 
     # Extract the lineup from the solution
+    # Use > 0.5 instead of == 1 to handle floating-point precision from LP solver
+    # (PuLP may return 0.9999999 instead of exactly 1.0)
     lineup = []
     for j in slots:
         for i in players:
-            if value(x[i][j]) == 1:
+            if value(x[i][j]) is not None and value(x[i][j]) > 0.5:
                 lineup.append((formation.slots[j], roster[i]))
 
     return lineup, value(prob.objective)

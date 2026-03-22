@@ -28,7 +28,15 @@ class Player:
 
         if total_weight == 0:
             return 0
-        return score / total_weight
+        base_score = score / total_weight
+
+        # Apply a multiplier based on whether this is the player's preferred position.
+        # Without this, the optimizer ignores position preferences entirely and can
+        # assign a FWD-only player to DEF, displacing a proper defender.
+        if position in self.positions:
+            return base_score * 1.3   # 30% bonus for playing a natural position
+        else:
+            return base_score * 0.5   # 50% penalty for playing out of position
 
     def __repr__(self):
         return f"Player({self.name}, rating={self.overall_rating():.1f})"
